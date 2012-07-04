@@ -12,4 +12,5 @@
 *.a
 
 # specail Bin File:
+bin
 memDetector

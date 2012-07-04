@@ -10,13 +10,14 @@
 
 QUIET   ?= @ 
 
-BIN_TARGET=memDetector
-
 #WORK_DIR = `pwd`
 WORK_DIR  = .
 OBJ_DIR   = $(WORK_DIR)/obj
 SRC_DIR   = $(WORK_DIR)/src
 INC_DIR   = $(WORK_DIR)/include
+BIN_DIR   = $(WORK_DIR)/bin
+
+BIN_TARGET= $(BIN_DIR)/memDetector
 
 CC       ?= g++
 LD        = g++
@@ -44,6 +45,7 @@ all:$(BIN_TARGET)
 clean:
 	@echo " [ Project CleaUp!!] "
 	$(QUIET)rm -rf $(OBJ_DIR)
+	$(QUIET)rm -rf $(BIN_DIR)
 
 $(BIN_TARGET): $(OBJ_DIR) $(OBJ_FILE)
 	@echo " [APP LD] $@"
@@ -51,6 +53,7 @@ $(BIN_TARGET): $(OBJ_DIR) $(OBJ_FILE)
 
 $(OBJ_DIR):
 	$(QUIET)rm -rf $(OBJ_DIR)
+	$(QUIET)mkdir -p $(BIN_DIR)
 	$(QUIET)mkdir -p $(OBJ_DIR)
 
 
