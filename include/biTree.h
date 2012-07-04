@@ -32,7 +32,7 @@ public:
 
   BiNode* getBiTreeRoot() const;
   void    insertBiNode(BiNode* node);
-  void    
+  void     
 private:
   BiNode* biNodeRoot;
 };

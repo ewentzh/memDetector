@@ -1,13 +1,17 @@
 
 
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
-using namespace std;
 
-int main()
+BiTree::BiTree()
 {
-  cout<<"Hello"<<endl;
-  return 0;
+}
+
+
+~BiTree::~BiTree()
+{
+  
 }
 
 

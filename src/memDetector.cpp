@@ -19,6 +19,7 @@ int formatLog(char* file,int line,int addr,int action)
   char buf[200] = {0};
   sprintf(buf,"File:%s,Line:%d,has %s Addr 0x%08X\n",file,line,action==1?"free":"malloc",addr);
   printf(buf);
+  return 0;
 }
 
 void* debug_malloc(char* file,int line,int size)
