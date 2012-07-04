@@ -2,3 +2,5 @@ memDetector
 ===========
 
 memory detector, to detect the memory Leak in C/C++ project.
+
+this project contain Libary and test instance.

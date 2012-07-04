@@ -1,0 +1,4 @@
+#this file log the changing list:
+
+     Date      Authoer    Description
+1.  2012-7-3   ewentzh   Project UP! And Makefile Done!!
