@@ -20,9 +20,9 @@ TEST_DIR  = $(WORK_DIR)/test
 
 BIN_TARGET= $(BIN_DIR)/memDetector
 
-CC       ?= g++
+CC       ?= g++ 
 LD        = g++
-CFLAG    += -Winline
+CFLAG    += -Winline 
 INC_FLAG += -I. -I$(INC_DIR)
 LD_FLAG  +=
 
