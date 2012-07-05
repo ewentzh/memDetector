@@ -16,6 +16,7 @@ OBJ_DIR   = $(WORK_DIR)/obj
 SRC_DIR   = $(WORK_DIR)/src
 INC_DIR   = $(WORK_DIR)/include
 BIN_DIR   = $(WORK_DIR)/bin
+TEST_DIR  = $(WORK_DIR)/test
 
 BIN_TARGET= $(BIN_DIR)/memDetector
 
@@ -26,7 +27,8 @@ INC_FLAG += -I. -I$(INC_DIR)
 LD_FLAG  +=
 
 #OBJ_FILE=$(OBJ_DIR)/main.o
-OBJ_FILE = $(OBJ_DIR)/biTree.o
+OBJ_FILE += $(OBJ_DIR)/memDetector.o
+OBJ_FILE += $(OBJ_DIR)/main.o
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
 	@echo " [SRC CC]  $@"
@@ -34,7 +36,7 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
 	$(QUIET) rm -rf $@
 	$(QUIET)$(CC) $(CFLAG) $(INC_FLAG) -o $@ -c $<
 
-$(OBJ_DIR)/%.o:%.cpp
+$(OBJ_DIR)/%.o:$(TEST_DIR)/%.cpp
 	@echo " [SRC CC]  $@"
 	$(QUIET) rm -rf $@
 	$(QUIET)$(CC) $(CFLAG) $(INC_FLAG) -o $@ -c $<
