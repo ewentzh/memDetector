@@ -11,10 +11,16 @@ public:
   }
 };
 
+
+extern int initMemDetector(char* logFile);
 int main(int argc, char* argv[])
 {
+  initMemDetector(NULL);
   char* ptr1 = (char*)malloc(10);
   char* ptr2 = (char*)malloc(10);
+
+  extern void testMem(void*);
+  testMem(ptr2);
   free(ptr1);
   free(ptr2);
 

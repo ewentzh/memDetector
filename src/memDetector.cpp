@@ -23,6 +23,8 @@
 /***********************   INCLUDE  ***********************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <biTree.h>
 /**********************************************************************/
 /**********************************************************************/
 
@@ -41,17 +43,47 @@ typedef struct AllocInfo{
     int line;
 }memInfo_t;
 
-typedef struct BiMemNode{
+typedef struct memNode{
     unsigned long addr;
+    unsigned long size;
     memInfo_t allocator;
     memInfo_t dellocator;
-};
+}memNode_t;
+
+static bbTree_t* avlRoot = NULL;
 
 
 
 int initMemDetector(char* logFile)
 {
-   
+   avlRoot = CreateAVLRoot();
+}
+
+memNode_t* createMemNode(unsigned char* addr,unsigned long size,const char* file,const char* func,int line)
+{
+  memNode_t * node = (memNode_t*) malloc(sizeof(memNode_t));
+  memset(node,0,sizeof(memNode_t));
+  if(!node)
+    return NULL;
+  node->addr = (unsigned long)addr;
+  strcpy(node->allocator.file,file);
+  strcpy(node->allocator.func,func);
+  node->allocator.line = line;
+  node->size = size;
+  return node;
+}
+
+void testMem(void* ptr)
+{
+
+    printAvl(avlRoot->avlRoot);
+    memNode_t* p = (memNode_t*)searchAVL(avlRoot,(unsigned int)ptr);
+    if( p == NULL)
+    {
+        printf("Failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        return ;
+    }
+    printf("TEST::::::===============> size: %d",p->size);
 }
 
 /* *
@@ -78,14 +110,23 @@ int formatLog(const char* file,int line,void* addr,int action)
  * Return Value:
  *
  **********************************************************************/
-void* debug_malloc(const char* file,int line,int size)
+void* debug_malloc(const char* file,const char* func,int line,int size)
 {
   char buf[200] = {0} ;
   void* ptr = NULL;
+  memNode_t * node;
+  avlNode_t * avlNode;
   ptr = malloc(size);
   formatLog(file,line,ptr,0);
+
+  if( avlRoot != NULL)
+  {
+    node = createMemNode((unsigned char*)ptr,size,file,func,line);
+    avlNode = createBBTNode(node->addr,node);
+    InsertAVL(avlRoot,avlNode);
+  }
   
-  return malloc(size);
+  return ptr;
 }
 
 /* *
@@ -96,7 +137,7 @@ void* debug_malloc(const char* file,int line,int size)
  * Return Value:
  *
  **********************************************************************/
-void debug_free(const char* file,int line,void* addr)
+void debug_free(const char* file,const char* func,int line,void* addr)
 {
   formatLog(file,line,addr,1);
   free(addr);

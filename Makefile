@@ -29,6 +29,7 @@ LD_FLAG  +=
 #OBJ_FILE=$(OBJ_DIR)/main.o
 OBJ_FILE += $(OBJ_DIR)/memDetector.o
 OBJ_FILE += $(OBJ_DIR)/main.o
+OBJ_FILE += $(OBJ_DIR)/biTree.o
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
 	@echo " [SRC CC]  $@"
