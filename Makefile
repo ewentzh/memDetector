@@ -39,6 +39,7 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.cpp
 
 $(OBJ_DIR)/%.o:$(TEST_DIR)/%.cpp
 	@echo " [SRC CC]  $@"
+	@echo " "
 	$(QUIET) rm -rf $@
 	$(QUIET)$(CC) $(CFLAG) $(INC_FLAG) -o $@ -c $<
 
@@ -53,7 +54,7 @@ clean:
 $(BIN_TARGET): $(OBJ_DIR) $(OBJ_FILE)
 	@echo " [APP LD] $@"
 	$(QUIET)$(LD) -Wl -o $@ $(OBJ_FILE)
-	@echo " [Execute Bin] "
+	@echo "   -------[Execute Bin]-------- "
 	./$@
 
 $(OBJ_DIR):
@@ -62,11 +63,16 @@ $(OBJ_DIR):
 	$(QUIET)mkdir -p $(OBJ_DIR)
 
 
-test:
+test1:
 	@echo WORK_DIR=$(WORK_DIR)
 	@echo OBJ_DIR =$(OBJ_DIR)
 	@echo SRC_DIR =$(SRC_DIR)
 	@echo INC_DIR =$(INC_DIR)
 	@echo CC      =$(CC)
 	@echo CCPP    =$(CCPP)
+
+
+
+
+
 
