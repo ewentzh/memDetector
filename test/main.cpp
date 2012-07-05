@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
   free(ptr1);
   free(ptr2);
 
-  int* p = new int;
+  char* p = new char;
   delete p;
   return 0;
 }

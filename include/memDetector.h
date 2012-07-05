@@ -22,17 +22,17 @@ extern void  debug_free(const char*,int,void* ptr);
 #define free(addr)    debug_free(__FILE__,__LINE__,(addr))
 
 
-extern void* operator new(unsigned int,const char*,const char*,int);
-extern void* operator new[](unsigned int,const char*,const char*,int);
+extern void* operator new(size_t,const char*,const char*,int);
+extern void* operator new[](size_t,const char*,const char*,int);
 extern void  operator delete(void* ,const char*,const char*,int);
 extern void  operator delete[](void*,const char*,const char*,int);
 
 #define new new(__FILE__,__func__,__LINE__)
-#define delete delete(__FILE__,__func__,__LINE__)
+#define delete delete (__FILE__,__func__,__LINE__)
+//#define delete __log_delete(__FILE__), delete
 
 
 #endif
-
 #endif
 
 
