@@ -2,6 +2,15 @@
 #include <stdio.h>
 #include <memDetector.h>
 
+
+class A
+{
+public:
+  A(){
+    printf("Here is Big A\n");
+  }
+};
+
 int main(int argc, char* argv[])
 {
   char* ptr1 = (char*)malloc(10);
@@ -9,8 +18,8 @@ int main(int argc, char* argv[])
   free(ptr1);
   free(ptr2);
 
-  char* p = new char;
-  delete p;
+  A* p = new A();
+   delete (p);
   return 0;
 }
 
