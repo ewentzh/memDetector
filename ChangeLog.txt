@@ -1,4 +1,7 @@
 #this file log the changing list:
 
      Date      Authoer    Description
+4.  2012-7-8   ewentzh   format Test
+3.  2012-7-7   ewentzh   add Bitree to record mem allocation status.
+2.  2012-7-5   ewentzh   Operator new/delete and malloc/free done!
 1.  2012-7-3   ewentzh   Project UP! And Makefile Done!!

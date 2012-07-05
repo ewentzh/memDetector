@@ -121,7 +121,7 @@ static int InsertAVLNode(avlNode_t* root,avlNode_t* e)
             bbt->isTaller = 1;
         }
         else
-            InsertAVLNode(root->lChild,e);
+            InsertAVLNode(root->rChild,e);
         if(bbt->isTaller)
             handleAvlNodeBf(root,2);
     }
