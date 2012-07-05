@@ -20,6 +20,8 @@ int main(int argc, char* argv[])
 
   A* p = new A();
    delete (p);
+   int* x = new int[10];
+   delete[] x;
   return 0;
 }
 
