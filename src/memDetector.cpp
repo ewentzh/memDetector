@@ -43,22 +43,30 @@ void* operator new[](size_t size,const char* file,const char* fun,int line)
 {
   void* ptr = NULL;
   printf("File:%s,Fun:%s,Line:%d\n",file,fun,line);
-  ptr = operator new[] (size);
+//  ptr = ::operator new[] (size);
+  ptr=malloc(size);
   return ptr;
 }
 void* operator new(size_t size,const char* file,const char* fun,int line)
 {
   void* ptr = NULL;
   printf("File:%s,Fun:%s,Line:%d\n",file,fun,line);
-  ptr = operator new(size);
+//  ptr = ::operator new(size);
+  ptr= malloc(size);
   return ptr;
 }
 
 
-void operator delete(void* ptr,const char* file, const char* fun ,int line)
+void operator delete(void* ptr)
 {
-   printf("Delete File:%s,Fun:%s,Line:%d  delete \n",file,fun,line);
-   operator delete(ptr);
+//  ::operator delete(ptr);
+  free(ptr);
+}
+
+void operator delete[] (void* ptr)
+{
+  free(ptr);
+//  ::operator delete[] (ptr);
 }
 
 

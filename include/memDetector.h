@@ -24,11 +24,11 @@ extern void  debug_free(const char*,int,void* ptr);
 
 extern void* operator new(size_t,const char*,const char*,int);
 extern void* operator new[](size_t,const char*,const char*,int);
-extern void  operator delete(void* ,const char*,const char*,int);
-extern void  operator delete[](void*,const char*,const char*,int);
+extern void  operator delete(void* );
+extern void  operator delete[](void*);
 
 #define new new(__FILE__,__func__,__LINE__)
-#define delete delete (__FILE__,__func__,__LINE__)
+//#define delete delete (__FILE__,__func__,__LINE__)
 //#define delete __log_delete(__FILE__), delete
 
 

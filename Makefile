@@ -52,6 +52,8 @@ clean:
 $(BIN_TARGET): $(OBJ_DIR) $(OBJ_FILE)
 	@echo " [APP LD] $@"
 	$(QUIET)$(LD) -Wl -o $@ $(OBJ_FILE)
+	@echo " [Execute Bin] "
+	./$@
 
 $(OBJ_DIR):
 	$(QUIET)rm -rf $(OBJ_DIR)
