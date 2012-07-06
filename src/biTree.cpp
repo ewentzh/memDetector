@@ -12,6 +12,12 @@ biTree::biTree()
   this->biRoot = NULL;
 }
 
+biTree::biTree(biTree& bt)
+{
+  printf("Not Supported Yet!!\n");
+  bt.biRoot = NULL;
+}
+
 biTree::~biTree()
 {
   this->destroy(this->biRoot);
@@ -54,6 +60,95 @@ int biTree::insNode(biNode* e)
     return -1;
     
   return this->InsertNode(this->biRoot,e);
+}
+
+int biTree::insNode(unsigned long key,void* val)
+{
+  biNode* node = NULL;
+  node = this->createNode(key,val);
+  if(node == NULL)
+    return -1;
+  this->insNode(node);
+}
+
+int biTree::delNode(biNode* node)
+{
+  return this->delNode(node->key);
+}
+
+int biTree::delNode(unsigned long key)
+{
+  biNode* btparent = NULL;
+  biNode* tmp,*ctree = NULL;
+
+  if(this->biRoot == NULL)
+    return 0;
+
+  if(this->biRoot->key == key)
+  {
+    ctree = this->biRoot;
+    if(this->biRoot->rChild == NULL)
+    {
+      this->biRoot = this->biRoot->lChild;
+      free(ctree);
+    }
+    else
+    {
+      while(ctree->rChild != NULL)
+      {
+        btparent = ctree;
+        ctree = ctree->rChild;
+      }
+      btparent->rChild = ctree->lChild;
+      ctree->rChild = this->biRoot->rChild;
+      ctree->lChild = this->biRoot->lChild;
+      free(this->biRoot);
+      this->biRoot = ctree;
+    }
+    return 0;
+  }
+
+  btparent = this->biRoot;
+  ctree = this->biRoot;
+  while(ctree != NULL)
+  {
+    if(ctree->key == key)
+      break;
+    else if(ctree->key > key)
+    {
+      btparent = ctree;
+      ctree = ctree->lChild;
+    }
+    else
+    {
+      btparent = ctree;
+      ctree = ctree->rChild;
+    }
+  }
+  /* Now ctree is the one to delete!!!!
+   * btparent is the farther node of ctree!!  */
+  if(ctree == this->biRoot ) // formal branch....
+  {
+    //should not get here!!
+  }
+  biNode* deleteNode = ctree;
+  biNode* tmpFather = ctree;
+  while( ctree->rChild != NULL )
+  {
+    tmpFather = ctree;
+    ctree = ctree->rChild;
+  }
+  /* Now ctree is the one which replace the deleteNode;
+   * */
+  if( deleteNode == btparent->rChild)
+    btparent->rChild = ctree;
+  else
+    btparent->lChild = ctree;
+  ctree->rChild = deleteNode->rChild;
+  ctree->lChild = deleteNode->lChild;
+  free(deleteNode);
+
+  return 0;
 }
 
 void biTree::travelBiTree()
