@@ -10,15 +10,12 @@
 typedef struct avlNode
 {
     int key;
-    int bf; // ballanced factor!!
     struct avlNode *lChild;
     struct avlNode *rChild;
-    void* bbtRoot;
     void* element;
 }avlNode_t;
 
 typedef struct bbTree{
-    int isTaller;  //is taller
     avlNode_t* avlRoot;
 }bbTree_t;
 
