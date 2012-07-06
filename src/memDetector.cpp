@@ -77,7 +77,7 @@ void testMem(void* ptr)
 {
 
     printAvl(avlRoot->avlRoot);
-    memNode_t* p = (memNode_t*)searchAVL(avlRoot,(unsigned int)ptr);
+    memNode_t* p = (memNode_t*)searchAVL(avlRoot,(unsigned long)ptr);
     if( p == NULL)
     {
         printf("Failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");

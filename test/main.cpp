@@ -47,6 +47,7 @@ int testMem_new()
 
 int testMem_class()
 {
+  printf("\n Test Class ===>\n");
   A* p   = new A();
   A* p1  = new A(10);
   A* p2  = new A[10]();
