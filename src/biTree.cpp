@@ -14,7 +14,7 @@ biTree::biTree()
 
 biTree::~biTree()
 {
-  this->destroy();
+  this->destroy(this->biRoot);
 }
 
 
@@ -114,9 +114,25 @@ int biTree::InsertNode(biNode* root,biNode* e)
     return 0;
 }
 
-void biTree::destroy()
+void biTree::destroy(biNode* root)
 {
-
+   if( root == NULL )
+     return;
+   if(root->lChild == NULL && root->rChild == NULL)
+   {
+     free(root);
+     return;
+   }
+   if(root->lChild != NULL)
+   {
+     destroy(root->lChild);
+     root->lChild = NULL;
+   }
+   if(root->rChild != NULL)
+   {
+     destroy(root->rChild);
+     root->rChild = NULL;
+   }
 }
 
 

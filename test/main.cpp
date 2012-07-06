@@ -65,8 +65,8 @@ int testMem()
   testMem_class();
 
   printf("\n\n=====  dump the biTree  =====\nn");
-  test
-
+  extern void dumpMem();
+  dumpMem();
   return 0;
 }
 

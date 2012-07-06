@@ -33,7 +33,7 @@ public:
   void*      searchKey(unsigned long key);
   void       travelBiTree();
 private:
-  void       destroy();
+  void       destroy(biNode*);
   void       travelBiTreeNode(biNode* e);
   int        InsertNode(biNode* root,biNode* e);
   void*      searchNode(biNode* e,unsigned long key);
