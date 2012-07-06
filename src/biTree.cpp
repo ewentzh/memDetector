@@ -133,6 +133,7 @@ int biTree::delNode(unsigned long key)
   }
   biNode* deleteNode = ctree;
   biNode* tmpFather = ctree;
+
   while( ctree->rChild != NULL )
   {
     tmpFather = ctree;
