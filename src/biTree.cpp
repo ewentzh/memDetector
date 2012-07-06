@@ -4,107 +4,119 @@
 #include <string.h>
 #include <biTree.h>
 
-static int InsertAVLNode(avlNode_t* root,avlNode_t* e);
-static void* searchAvlNode(avlNode_t* e,unsigned int key);
 
 
-avlNode_t* createBBTNode(int key,void* val)
+
+biTree::biTree()
 {
-    avlNode_t*  avl = NULL;
-    avl = (avlNode_t*) malloc( sizeof(avlNode_t) );
-    if( NULL == avl ) return NULL;
-
-    avl->key = key;
-    avl->element = val;
-    avl->lChild  = NULL;
-    avl->rChild  = NULL;
-
-    return avl;
+  this->biRoot = NULL;
 }
- 
 
-bbTree_t* CreateAVLRoot()
+biTree::~biTree()
 {
-    bbTree_t* bbt = (bbTree_t*)malloc(sizeof(bbTree_t));
-    if( NULL==bbt) return NULL;
-    
-    bbt->avlRoot = NULL;
-    return bbt;
+  this->destroy();
 }
 
 
+biNode* biTree::getRoot()
+{
+  return this->biRoot;
+}
+
+biNode* biTree::createNode(unsigned long key,void* val)
+{
+  biNode* node  = (biNode*)malloc(sizeof(biNode));
+
+  if(!node) return NULL;
+  node->key     = key;
+  node->element = val;
+  node->rChild  = NULL;
+  node->lChild  = NULL;
+
+  return node;
+}
 //----------------------------------------------
 /*********** Insertion Function ****************/
-int InsertAVL(bbTree_t *root, avlNode_t* e)
+int biTree::insNode(biNode* e)
 {
-    if( !root || !e)
-        return -1;
+  if(e == NULL)
+    return -1;
 
-    /* if empty Root, just add this Node to Root! */
-    if(!root->avlRoot)
-    {
-        root->avlRoot = e;
-        return 0;
-    }
-    /* if the Node is in the avl tree, return false! 
-       if the key is equal to the key of root return false! */
-    if( root->avlRoot==e || root->avlRoot->key == e->key)
-        return -1;
+  if( this->biRoot == NULL )
+  {
+    this->biRoot = e;
+    return 0;
+  }
+
+  /* if the Node is in the avl tree, return false! 
+     if the key is equal to the key of root return false! */
+  if( this->biRoot==e || this->biRoot->key == e->key)
+    return -1;
     
-    return InsertAVLNode(root->avlRoot,e);
+  return this->InsertNode(this->biRoot,e);
 }
 
-void* searchAVL(bbTree_t* root,unsigned int key)
+void biTree::travelBiTree()
 {
-    if( !root )
-        return NULL;
-    return searchAvlNode(root->avlRoot,key);
-}
-
-void printAvl(avlNode_t* root)
-{
-   if(root == NULL)
+   if(this->biRoot == NULL)
       return;
 
-   printf("Root key=0x%08X \n",root->key);
-   printAvl(root->lChild);
-   printAvl(root->rChild);
+   this->travelBiTreeNode(this->biRoot);
+
+}
+
+void biTree::travelBiTreeNode(biNode* e)
+{ 
+  if(e == NULL)
+    return;
+  printf(" key=[0x%08X]\n",e->key);
+  travelBiTreeNode(e->lChild);
+  travelBiTreeNode(e->rChild);
+}
+
+void* biTree::searchKey(unsigned long key)
+{
+  return this->searchNode(this->biRoot,key);
 }
 
 //----------------------------------------------
 /*********** Searching Function ****************/
-static void* searchAvlNode(avlNode_t* e,unsigned int key)
+void* biTree::searchNode(biNode* e,unsigned long key)
 {
-    if(e == NULL )
-        return NULL;
-    printf("Searching for 0x%08x, current: 0x%08X \n",key,e->key);
+  if(e == NULL )
+    return NULL;
 
-    if(e->key > key)
-        return searchAvlNode(e->lChild,key);
-    if(e->key < key)
-        return searchAvlNode(e->rChild,key);
-    return e->element;
+  if(e->key > key)
+    return this->searchNode(e->lChild,key);
+  if(e->key < key)
+    return this->searchNode(e->rChild,key);
+  return e->element;
 }
 
 //----------------------------------------------
 /*********** Insertion Function ****************/
-static int InsertAVLNode(avlNode_t* root,avlNode_t* e)
+int biTree::InsertNode(biNode* root,biNode* e)
 {
     if( root-> key > e->key )// left insert!
     {
         if(root->lChild == NULL)
             root->lChild = e;
         else
-            return InsertAVLNode(root->lChild,e);
+            return InsertNode(root->lChild,e);
     }
     else //right insert!!
     {
         if(root->rChild == NULL)
             root->rChild = e;
         else
-            return InsertAVLNode(root->rChild,e);
+            return InsertNode(root->rChild,e);
     }
     return 0;
+}
+
+void biTree::destroy()
+{
+
 }
 
 

@@ -50,14 +50,7 @@ typedef struct memNode{
     memInfo_t dellocator;
 }memNode_t;
 
-static bbTree_t* avlRoot = NULL;
-
-
-
-int initMemDetector(char* logFile)
-{
-   avlRoot = CreateAVLRoot();
-}
+static biTree  btree;
 
 memNode_t* createMemNode(unsigned char* addr,unsigned long size,const char* file,const char* func,int line)
 {
@@ -73,17 +66,17 @@ memNode_t* createMemNode(unsigned char* addr,unsigned long size,const char* file
   return node;
 }
 
-void testMem(void* ptr)
+void dumpMem()
 {
-
-    printAvl(avlRoot->avlRoot);
-    memNode_t* p = (memNode_t*)searchAVL(avlRoot,(unsigned long)ptr);
-    if( p == NULL)
-    {
-        printf("Failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-        return ;
-    }
-    printf("TEST::::::===============> size: %d",p->size);
+//    printAvl(avlRoot->avlRoot);
+//    memNode_t* p = (memNode_t*)searchAVL(avlRoot,(unsigned long)ptr);
+//    if( p == NULL)
+//    {
+//        printf("Failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+//        return ;
+//    }
+//    printf("TEST::::::===============> size: %d",p->size);
+  btree.travelBiTree();
 }
 
 /* *
@@ -115,16 +108,13 @@ void* debug_malloc(const char* file,const char* func,int line,int size)
   char buf[200] = {0} ;
   void* ptr = NULL;
   memNode_t * node;
-  avlNode_t * avlNode;
+  biNode *    biNode;
   ptr = malloc(size);
   formatLog(file,line,ptr,0);
 
-  if( avlRoot != NULL)
-  {
-    node = createMemNode((unsigned char*)ptr,size,file,func,line);
-    avlNode = createBBTNode(node->addr,node);
-    InsertAVL(avlRoot,avlNode);
-  }
+  node = createMemNode((unsigned char*)ptr,size,file,func,line);
+  biNode = btree.createNode(node->addr,node);
+  btree.insNode(biNode);
   
   return ptr;
 }

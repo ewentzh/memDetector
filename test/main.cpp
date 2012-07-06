@@ -64,12 +64,14 @@ int testMem()
   testMem_new();
   testMem_class();
 
+  printf("\n\n=====  dump the biTree  =====\nn");
+  test
+
   return 0;
 }
 
 int main(int argc, char* argv[])
 {
-  initMemDetector(NULL);
 
   testBiTree();
   testMem();

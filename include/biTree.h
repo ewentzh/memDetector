@@ -7,26 +7,39 @@
 #ifndef __BITREE__MEM_PRJECT__H__
 #define __BITREE__MEM_PRJECT__H__
 
-typedef struct avlNode
+class biNode
 {
-    int key;
-    struct avlNode *lChild;
-    struct avlNode *rChild;
+public:
+    unsigned long key;
+    biNode *lChild;
+    biNode *rChild;
     void* element;
-}avlNode_t;
+    biNode(){
+        key     = 0;
+        lChild  = NULL;
+        rChild  = NULL;
+        element = NULL;
+    }
+};
 
-typedef struct bbTree{
-    avlNode_t* avlRoot;
-}bbTree_t;
-
-
-extern bbTree_t* CreateAVLRoot();
-extern avlNode_t* createBBTNode(int key,void* val);
-extern int InsertAVL(bbTree_t *root, avlNode_t* e);
-extern void* searchAVL(bbTree_t* root,unsigned int key);
-extern void printAvl(avlNode_t* root);
-
-
+class biTree{
+public:
+  biTree();
+  ~biTree();
+public:
+  biNode*    getRoot();
+  biNode*    createNode(unsigned long key,void* val);
+  int        insNode(biNode* node);
+  void*      searchKey(unsigned long key);
+  void       travelBiTree();
+private:
+  void       destroy();
+  void       travelBiTreeNode(biNode* e);
+  int        InsertNode(biNode* root,biNode* e);
+  void*      searchNode(biNode* e,unsigned long key);
+private:
+  biNode* biRoot;
+};
 
 #endif
 
